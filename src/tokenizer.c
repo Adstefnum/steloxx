@@ -1,31 +1,37 @@
 #include "tokenizer.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
-char *tokens[500];
-int size = 0;
+char *validTokens[500];
+char *invalidTokens[500];
+int validTokensSize = 0;
+int invalidTokensSize = 0;
+char error[256];
 
 void tokenize(char *file_contents) {
     char *line = strtok(file_contents,"\n");
     int line_count = 1;
-    char error[256];
 //can rewrite this to have a token data structure and not add error to tokens
     while(line) {
         for (int i =0; line[i] != '\0'; i++) {
             char token = line[i];
             switch (token) {
-                case '(':  addToken("LEFT_PAREN ( null"); break;
-                case ')': addToken("RIGHT_PAREN ) null"); break;
-                case '{':  addToken("LEFT_BRACE { null"); break;
-                case '}': addToken("RIGHT_BRACE } null"); break;
-                case ',':  addToken("COMMA , null"); break;
-                case '.': addToken("DOT . null"); break;
-                case '-':  addToken("MINUS - null"); break;
-                case '+': addToken("PLUS + null"); break;
-                case ';': addToken("SEMICOLON ; null"); break;
-                case '/':  addToken("SLASH / null"); break;
-                case '*': addToken("STAR * null"); break;
-                default: snprintf(error, sizeof(error),"[line %d] Error: Unexpected character: %c", line_count, token);addToken(strdup(error));
+                case '(':  addToken("LEFT_PAREN (", validTokens, &validTokensSize); break;
+                case ')': addToken("RIGHT_PAREN )", validTokens, &validTokensSize); break;
+                case '{':  addToken("LEFT_BRACE {", validTokens, &validTokensSize); break;
+                case '}': addToken("RIGHT_BRACE }", validTokens, &validTokensSize); break;
+                case ',':  addToken("COMMA ,", validTokens, &validTokensSize); break;
+                case '.': addToken("DOT .", validTokens, &validTokensSize); break;
+                case '-':  addToken("MINUS -", validTokens, &validTokensSize); break;
+                case '+': addToken("PLUS +", validTokens, &validTokensSize); break;
+                case ';': addToken("SEMICOLON ;", validTokens, &validTokensSize); break;
+                case '/':  addToken("SLASH /", validTokens, &validTokensSize); break;
+                case '*': addToken("STAR *", validTokens, &validTokensSize); break;
+                default: {
+                            sprintf(error,"[line %d] Error: Unexpected character: %c", line_count, token);
+                            addToken(error, invalidTokens, &invalidTokensSize);
+                        }
             }
         }
         line_count +=1;
@@ -34,14 +40,21 @@ void tokenize(char *file_contents) {
 }
 
 void printTokens() {
-    for(int i=0; i<size; i++) {
+    for(int i=0; i<invalidTokensSize; i++) {
+        setvbuf (stderr, NULL, _IONBF, 0);
+        printf("%s\n",invalidTokens[i]);
+    }
+    for(int i=0; i<validTokensSize; i++) {
         setvbuf (stdout, NULL, _IONBF, 0);
-        printf("%s\n",tokens[i]);
+        printf("%s %s\n",validTokens[i],"null");
     }
     printf("EOF  null");
+    if(invalidTokensSize > 0){
+        exit(65);
+    }
 
 }
 
-void addToken(char *token) {
-    tokens[size++] = token;
+void addToken(char *token, char *tokens[], int *tokensSize) {
+    tokens[(*tokensSize)++] = strdup(token);
 }
