@@ -8,7 +8,7 @@ int size = 0;
 void tokenize(char *file_contents) {
     char *line = strtok(file_contents,"\n");
     int line_count = 1;
-    char error[256];
+    char *error[256];
 //can rewrite this to have a token data structure and not add error to tokens
     while(line) {
         for (int i =0; line[i] != '\0'; i++) {
@@ -25,7 +25,7 @@ void tokenize(char *file_contents) {
                 case ';': addToken("SEMICOLON ; null"); break;
                 case '/':  addToken("SLASH / null"); break;
                 case '*': addToken("STAR * null"); break;
-                default: snprintf(error, sizeof(error),"[line %d] Error: Unexpected character: %c", line_count, token);addToken(error);
+                default: snprintf(error, sizeof(error),"[line %d] Error: Unexpected character: %c", line_count, token);addToken(&error);
             }
         }
         line_count +=1;

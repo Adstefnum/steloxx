@@ -5,4 +5,4 @@ void tokenize(char *file_contents);
 
 void printTokens();
 
-void addToken(char *tokens);
+void addToken(char *token);
