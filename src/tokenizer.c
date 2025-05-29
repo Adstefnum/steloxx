@@ -20,7 +20,7 @@ void printTokens() {
         setvbuf (stdout, NULL, _IONBF, 0);
         printf("%s %s\n",tokens[i], "null");
     }
-    printf("EOF null");
+    printf("EOF  null");
 
 }
 
