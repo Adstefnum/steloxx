@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
         if (strlen(file_contents) > 0) {
             tokenize(file_contents);
             printTokens();
+            freeTokens();
         } 
 
         else {

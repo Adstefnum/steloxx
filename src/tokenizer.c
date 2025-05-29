@@ -12,7 +12,7 @@ char error[256];
 void tokenize(char *file_contents) {
     char *line = strtok(file_contents,"\n");
     int line_count = 1;
-//can rewrite this to have a token data structure and not add error to tokens
+    
     while(line) {
         for (int i =0; line[i] != '\0'; i++) {
             char token = line[i];
@@ -41,11 +41,9 @@ void tokenize(char *file_contents) {
 
 void printTokens() {
     for(int i=0; i<invalidTokensSize; i++) {
-        setvbuf (stderr, NULL, _IONBF, 0);
-        printf("%s\n",invalidTokens[i]);
+        fprintf(stderr,"%s\n",invalidTokens[i]);
     }
     for(int i=0; i<validTokensSize; i++) {
-        setvbuf (stdout, NULL, _IONBF, 0);
         printf("%s %s\n",validTokens[i],"null");
     }
     printf("EOF  null");
@@ -57,4 +55,13 @@ void printTokens() {
 
 void addToken(char *token, char *tokens[], int *tokensSize) {
     tokens[(*tokensSize)++] = strdup(token);
+}
+
+void freeTokens() {
+    for (int i = 0; i < validTokensSize; i++) {
+        free(validTokens[i]);
+    }
+    for (int i = 0; i < invalidTokensSize; i++) {
+        free(invalidTokens[i]);
+    }
 }
