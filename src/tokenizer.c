@@ -10,7 +10,8 @@ void tokenize(char *file_contents) {
         switch (token) {
             case '(':  addToken("LEFT_PAREN ("); break;
             case ')': addToken("RIGHT_PAREN )"); break;
-            default: addToken("EOF");
+            case '{':  addToken("LEFT_BRACE {"); break;
+            case '}': addToken("RIGHT_BRACE }"); break;
         }
     }
 }
