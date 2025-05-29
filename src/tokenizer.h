@@ -1,8 +1,8 @@
 
 
 
-void *tokenize(char *file_contents);
+void tokenize(char *file_contents);
 
-char *printTokens(char *token_list);
+void printTokens();
 
-char *addToken(char *tokens);
+void addToken(char *tokens);
