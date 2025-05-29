@@ -18,9 +18,9 @@ void tokenize(char *file_contents) {
 void printTokens() {
     for(int i=0; i<size; i++) {
         setvbuf (stdout, NULL, _IONBF, 0);
-        printf("%s %s \n",tokens[i], "null");
+        printf("%s %s\n",tokens[i], "null");
     }
-    printf("EOF null \n");
+    printf("EOF null");
 
 }
 
