@@ -28,6 +28,7 @@ void tokenize(char *file_contents) {
                 case ';': addToken("SEMICOLON ;", validTokens, &validTokensSize); break;
                 case '/':  addToken("SLASH /", validTokens, &validTokensSize); break;
                 case '*': addToken("STAR *", validTokens, &validTokensSize); break;
+                case '=': addToken("EQUAL =", validTokens, &validTokensSize); break;                
                 default: {
                             sprintf(error,"[line %d] Error: Unexpected character: %c", line_count, token);
                             addToken(error, invalidTokens, &invalidTokensSize);
