@@ -25,7 +25,7 @@ void tokenize(char *file_contents) {
                 case ';': addToken("SEMICOLON ; null"); break;
                 case '/':  addToken("SLASH / null"); break;
                 case '*': addToken("STAR * null"); break;
-                default: snprintf(error, sizeof(error),"[line %d] Error: Unexpected character: %c", line_count, token);addToken(&error);
+                default: snprintf(error, sizeof(error),"[line %d] Error: Unexpected character: %c", line_count, token);addToken(error);
             }
         }
         line_count +=1;
