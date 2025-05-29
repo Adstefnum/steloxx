@@ -25,10 +25,13 @@ int main(int argc, char *argv[]) {
         if (strlen(file_contents) > 0) {
             tokenize(file_contents);
             printTokens();
-            exit(0);
         } 
-        
+
+        else {
+            printf("EOF  null");
+        } 
         free(file_contents);
+        exit(0);
     } else {
         fprintf(stderr, "Unknown command: %s\n", command);
         return 1;
