@@ -1,8 +1,23 @@
 #include "tokenizer.h"
 
+char *tokens[100];
+int size = 0;
 
-char *tokenize(const char *file_contents) {
-    return file_contents;
+void *tokenize(char *file_contents) {
+    for (int i =0; file_contents[i] != '\0'; i++) {
+        char token = '(';
+        switch (token) {
+            case '(':  addToken("LEFT_PAREN"); break;
+            case ')': addToken("RIGHT_PAREN"); break;
+            default: addToken("EOF");
+        }
+    }
 }
 
-// I think i esentially need a list or map and an iterator that reads thorugh it. so the next() thing
+char *printTokens(char *token_list) {
+
+}
+
+char *addToken(char *token) {
+    tokens[size] = token;
+}
