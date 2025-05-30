@@ -44,6 +44,22 @@ void tokenize(char *file_contents) {
                             }
                                 addToken("BANG !", validTokens, &validTokensSize); break;
                         }
+                case '<': {
+                            if(line[i+1]=='=') {
+                                addToken("LESS_EQUAL <=", validTokens, &validTokensSize);
+                                i++;
+                                break;
+                            }
+                                addToken("LESS <", validTokens, &validTokensSize); break;
+                        }
+                case '>': {
+                            if(line[i+1]=='=') {
+                                addToken("GREATER_EQUAL >=", validTokens, &validTokensSize);
+                                i++;
+                                break;
+                            }
+                                addToken("GREATER >", validTokens, &validTokensSize); break;
+                        }
                 default: {
                             sprintf(error,"[line %d] Error: Unexpected character: %c", line_count, token);
                             addToken(error, invalidTokens, &invalidTokensSize);
